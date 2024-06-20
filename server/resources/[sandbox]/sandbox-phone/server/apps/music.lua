@@ -18,8 +18,8 @@ AddEventHandler("Phone:Server:RegisterCallbacks", function()
 				_pendingShopDeposits[key].royalties[data.id] = _pendingShopDeposits[key].royalties[data.id]
 					or { total = 0, song = song, label = label, played = 0 }
 				--if _pendingShopDeposits[key].royalties[data.id].total < _maxRoyaltyPerHour then
-				_pendingShopDeposits[key].royalties[data.id].total = value.royalty
-				_pendingShopDeposits[key].royalties[data.id].played = 1
+				_pendingShopDeposits[key].royalties[data.id].total += value.royalty
+				_pendingShopDeposits[key].royalties[data.id].played += 1
 				--end
 			end
 		end
@@ -39,9 +39,9 @@ AddEventHandler("Phone:Server:Startup", function()
 
 	if not _startingPendingDepositThread then
 		_startingPendingDepositThread = true
-		CreateThread(function()
+		Citizen.CreateThread(function()
 			while true do
-				Wait(1000 * 60 * 60)
+				Citizen.Wait(1000 * 60 * 60)
 				for k, v in pairs(_pendingShopDeposits) do
 					for k2, v2 in pairs(v.royalties) do
 						Logger:Trace(
