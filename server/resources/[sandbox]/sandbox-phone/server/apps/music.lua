@@ -18,8 +18,8 @@ AddEventHandler("Phone:Server:RegisterCallbacks", function()
 				_pendingShopDeposits[key].royalties[data.id] = _pendingShopDeposits[key].royalties[data.id]
 					or { total = 0, song = song, label = label, played = 0 }
 				--if _pendingShopDeposits[key].royalties[data.id].total < _maxRoyaltyPerHour then
-				_pendingShopDeposits[key].royalties[data.id].total += value.royalty
-				_pendingShopDeposits[key].royalties[data.id].played += 1
+				_pendingShopDeposits[key].royalties[data.id].total = value.royalty
+				_pendingShopDeposits[key].royalties[data.id].played = 1
 				--end
 			end
 		end
